@@ -1,8 +1,8 @@
-package edu.Sim3LR8.controller;
+package edu.CourseProject.controller;
 
-import edu.Sim3LR8.dto.UserDto;
-import edu.Sim3LR8.entity.User;
-import edu.Sim3LR8.service.UserService;
+import edu.CourseProject.dto.UserDto;
+import edu.CourseProject.entity.User;
+import edu.CourseProject.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -37,10 +37,10 @@ public class SecurityController {
     public String registration(@Valid @ModelAttribute("user") UserDto userDto,
                                BindingResult result,
                                Model model){
-        User existingUser = userService.findUserByEmail((userDto.getEmail()));
+        User existingUser = userService.findUserByUsername((userDto.getUsername()));
 
-        if (existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()){
-            result.rejectValue("email", null,"На этот адрес электронной почты уже зарегистрирована учетная запись.");
+        if (existingUser != null && existingUser.getUsername() != null && !existingUser.getUsername().isEmpty()){
+            result.rejectValue("username", null,"Пользователь с таким именем уже существует");
         }
 
         userService.saveUser(userDto);

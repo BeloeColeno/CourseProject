@@ -1,4 +1,4 @@
-package edu.Sim3LR8.config;
+package edu.CourseProject.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +22,7 @@ public class WebSecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/register/**").permitAll()
                 .antMatchers("/index").permitAll()
-                .antMatchers("/users").hasRole("ADMIN")
+                .anyRequest().authenticated()
                 .and()
                 .formLogin(
                         form -> form

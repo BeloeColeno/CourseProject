@@ -1,4 +1,4 @@
-package edu.Sim3LR8.entity;
+package edu.CourseProject.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,10 +21,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    private String name;
+    private String username;
     @Column(nullable = false, unique = true)
-    private String email;
-    @Column(nullable = false)
     private String password;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(

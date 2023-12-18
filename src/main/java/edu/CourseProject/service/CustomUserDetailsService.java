@@ -1,7 +1,7 @@
-package edu.Sim3LR8.service;
+package edu.CourseProject.service;
 
-import edu.Sim3LR8.repository.UserRepository;
-import edu.Sim3LR8.entity.User;
+import edu.CourseProject.repository.UserRepository;
+import edu.CourseProject.entity.User;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,17 +18,17 @@ public class CustomUserDetailsService implements UserDetailsService {
     public CustomUserDetailsService(UserRepository userRepository) {this.userRepository = userRepository;}
 
     @Override
-    public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException{
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
 
-        User user = userRepository.findByEmail(usernameOrEmail);
+        User user = userRepository.findByUsername(username);
         if (user != null){
-            return new org.springframework.security.core.userdetails.User(user.getEmail(),
+            return new org.springframework.security.core.userdetails.User(user.getUsername(),
                     user.getPassword(),
                     user.getRoles().stream()
-                            .map((role) -> new SimpleGrantedAuthority(role.getName()))
+                            .map((role) -> new SimpleGrantedAuthority(role.getUsername()))
                             .collect(Collectors.toList()));
         }else {
-            throw new UsernameNotFoundException("Invalid Email or Password");
+            throw new UsernameNotFoundException("Invalid Username or Password");
         }
     }
 }

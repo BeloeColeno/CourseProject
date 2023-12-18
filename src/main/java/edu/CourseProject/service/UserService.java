@@ -1,0 +1,15 @@
+package edu.CourseProject.service;
+
+import edu.CourseProject.dto.UserDto;
+import edu.CourseProject.entity.User;
+
+import java.util.List;
+
+public interface UserService {
+
+    void saveUser(UserDto userDto);
+
+    User findUserByUsername(String username);
+
+    List<UserDto> findAllUsers();
+}

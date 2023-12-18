@@ -1,4 +1,4 @@
-package edu.Sim3LR8.config;
+package edu.CourseProject.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;

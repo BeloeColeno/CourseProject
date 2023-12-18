@@ -1,10 +1,10 @@
-package edu.Sim3LR8;
+package edu.CourseProject;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Sim3Lr8ApplicationTests {
+class CourseProjectApplicationTests {
 
 	@Test
 	void contextLoads() {

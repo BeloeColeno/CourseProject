@@ -1,4 +1,4 @@
-package edu.Sim3LR8.entity;
+package edu.CourseProject.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,8 +12,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "STUDENTS")
-public class Student {
+@Table(name = "EMPLOYEES")
+public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,9 +26,12 @@ public class Student {
     @Column(name = "surname")
     private String surname;
 
-    @Column(name = "faculty")
-    private String faculty;
-
     @Column(name = "age")
     private int age;
+
+    @Column(name = "department")
+    private String department;
+
+    @Column(name = "salary")
+    private int salary;
 }

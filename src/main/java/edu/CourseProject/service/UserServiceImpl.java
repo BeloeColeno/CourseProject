@@ -1,10 +1,10 @@
-package edu.Sim3LR8.service;
+package edu.CourseProject.service;
 
-import edu.Sim3LR8.dto.UserDto;
-import edu.Sim3LR8.entity.Role;
-import edu.Sim3LR8.repository.RoleRepository;
-import edu.Sim3LR8.repository.UserRepository;
-import edu.Sim3LR8.entity.User;
+import edu.CourseProject.dto.UserDto;
+import edu.CourseProject.entity.Role;
+import edu.CourseProject.repository.RoleRepository;
+import edu.CourseProject.repository.UserRepository;
+import edu.CourseProject.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -32,11 +32,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void saveUser(UserDto userDto){
         User user = new User();
-        user.setName(userDto.getFirstName() + " " + userDto.getLastName());
-        user.setEmail(userDto.getEmail());
+        user.setUsername(userDto.getUsername());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
-        Role role = roleRepository.findByName("ROLE_ADMIN");
+        Role role = roleRepository.findByUsername("ROLE_ADMIN");
         if(role == null){
             role = checkRoleExist();
         }
@@ -45,7 +44,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findUserByEmail(String email) {return userRepository.findByEmail(email);}
+    public User findUserByUsername(String username) {return userRepository.findByUsername(username);}
 
     @Override
     public List<UserDto> findAllUsers(){
@@ -57,16 +56,13 @@ public class UserServiceImpl implements UserService {
 
     private UserDto mapToUserDto(User user){
         UserDto userDto = new UserDto();
-        String[] str = user.getName().split(" ");
-        userDto.setFirstName(str[0]);
-        userDto.setLastName(str[1]);
-        userDto.setEmail(user.getEmail());
+        String[] str = user.getUsername().split(" ");
         return userDto;
     }
 
     private Role checkRoleExist(){
         Role role = new Role();
-        role.setName("ROLE_ADMIN");
+        role.setUsername("ROLE_ADMIN");
         return roleRepository.save(role);
     }
 }

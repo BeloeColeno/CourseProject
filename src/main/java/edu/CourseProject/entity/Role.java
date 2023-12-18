@@ -1,4 +1,4 @@
-package edu.Sim3LR8.entity;
+package edu.CourseProject.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,7 +20,7 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(nullable = false, unique = true)
-    private String name;
+    private String username;
     @ManyToMany(mappedBy = "roles")
     private List<User> users = new ArrayList<>();
 }
