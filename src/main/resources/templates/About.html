@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Информация о разработчике и приложении</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/index}">Employees Management System</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" th:href="@{/login}">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" th:href="@{/register}">Register</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" th:href="@{/About}">About the attachment</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<h1>Информация о разработчике и приложении</h1>
+
+<p>   Добро пожаловать в центр управления персоналом! <br>
+    Здесь вы найдете все необходимые инструменты для оптимизации управления персоналом,<br>
+    повышения производительности и создания комфортной рабочей атмосферы. <br>
+    Наша цель - сделать процессы управления персоналом более прозрачными, эффективными и дружелюбными.<br>
+    На платформе вы сможете легко отслеживать рабочие задачи, управлять проектами, следить за процессами обучения и развития сотрудников.<br>
+    Также здесь вы найдете возможности для обмена идеями, обратной связи и общения с коллегами.<br>
+    Мы стремимся к созданию места, где каждый сотрудник чувствует себя важным звеном в команде, где каждый голос услышан, а каждая инициатива поддержана. <br>
+    Пусть эта платформа станет для вас надежным помощником в построении успешной и эффективной работы!</p>
+
+</body>
+</html>

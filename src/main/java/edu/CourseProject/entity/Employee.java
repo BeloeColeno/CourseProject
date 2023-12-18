@@ -1,9 +1,6 @@
 package edu.CourseProject.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -13,6 +10,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "EMPLOYEES")
+@ToString(exclude = "user")
 public class Employee {
 
     @Id
@@ -34,4 +32,15 @@ public class Employee {
 
     @Column(name = "salary")
     private int salary;
+
+    @ManyToOne
+    private User user;
+
+  /*  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "employees_addresses",
+            joinColumns = {@JoinColumn(name = "employee_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "address_id", referencedColumnName = "id")}
+    )
+    private List<Address> addresses = new ArrayList<>(); */
 }

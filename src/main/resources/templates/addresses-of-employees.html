@@ -4,7 +4,7 @@
 >
 <head>
     <meta charset="UTF-8">
-    <title>Employee Management System</title>
+    <title>Employees Addresses Management System</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
           rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
@@ -14,7 +14,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{/index}">Employee Management System</a>
+        <a class="navbar-brand" th:href="@{/index}">Employees Addresses Management System</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -28,9 +28,6 @@
                     <a class="nav-link active" aria-current="page" th:href="@{/register}">Register</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/About}">About the attachment</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link active" aria-current="page" th:href="@{/logout}">Logout</a>
                 </li>
             </ul>
@@ -40,34 +37,32 @@
 <div class="container">
 
     <hr/>
-    <a th:href="@{/addEmployeeForm}" class="btn btn-primary">Add employee</a>
+    <a th:href="@{/addAddressForm}" class="btn btn-primary">Add Address of Employee</a>
     <br/><br/>
-    <table class="table table-bordered table-striped" id="employeeTable">
+    <table class="table table-bordered table-striped" id="addressTable">
 
         <thead>
         <tr>
             <th>Name</th>
             <th>Surname</th>
-            <th>Age</th>
-            <th>Department</th>
-            <th>Salary</th>
+            <th>Country</th>
+            <th>City</th>
+            <th>Street</th>
+            <th>House</th>
+            <th>Apartment</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="employee: ${employees}">
             <td th:text="${employee.name}" />
             <td th:text="${employee.surname}" />
-            <td th:text="${employee.age}" />
-            <td th:text="${employee.department}" />
-            <td th:text="${employee.salary}" />
+            <td th:text="${address.Country}" />
+            <td th:text="${address.City}" />
+            <td th:text="${address.Street}" />
+            <td th:text="${address.House}" />
+            <td th:text="${address.Apartment}" />
             <td>
-                <a th:href="@{/showUpdateForm(employeeId=${employee.id})}" class="btn btn-info">Update</a>
-
-                <form th:action="@{/deleteEmployee(employeeId=${employee.id})}" method="post">
-                    <input type="hidden" name="id" th:value="${employee.id}" />
-                    <input type="submit" value="Delete" class="btn btn-danger" />
-                </form>
-
+                <a th:href="@{/showAddressUpdateForm(addressId=${address.id})}" class="btn btn-info">Update</a>
             </td>
         </tr>
         </tbody>
@@ -79,7 +74,7 @@
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.js"></script>
 <script>
     $(document).ready(function() {
-        $("#bookTable").DataTable({
+        $("#AddressTable").DataTable({
             'aoColumnDefs': [{
                 'bSortable': false,
                 'aTargets': [-1] /* 1st one, start by the right */

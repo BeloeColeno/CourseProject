@@ -14,21 +14,24 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class WebSecurityConfig {
 
     @Bean
-    public static PasswordEncoder passwordEncoder(){return new BCryptPasswordEncoder();}
+    public static PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/register/**").permitAll()
                 .antMatchers("/index").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin(
+                .antMatchers("/users").hasRole("ADMIN")
+                .antMatchers("/list1").permitAll()
+                .antMatchers("/list").permitAll()
+                .and().formLogin(
                         form -> form
                                 .loginPage("/login")
                                 .loginProcessingUrl("/login")
-                                .defaultSuccessUrl("/users")
+                                .defaultSuccessUrl("/redirect")
                                 .permitAll()
                 ).logout(
                         logout -> logout

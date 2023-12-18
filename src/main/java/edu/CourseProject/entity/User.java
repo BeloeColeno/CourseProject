@@ -1,13 +1,11 @@
 package edu.CourseProject.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -15,15 +13,28 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
+@ToString(exclude = "employees")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false)
-    private String username;
+    private String name;
+
     @Column(nullable = false, unique = true)
+    private String email;
+
+    @Column(nullable = false)
     private String password;
+
+    @Column(name = "username")  // <-- Добавлено свойство username
+    private String username;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Employee> employees;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "users_roles",
@@ -31,4 +42,8 @@ public class User {
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")}
     )
     private List<Role> roles = new ArrayList<>();
+
+    public Set<UserRole> getUserRoles() {
+        return null;
+    }
 }

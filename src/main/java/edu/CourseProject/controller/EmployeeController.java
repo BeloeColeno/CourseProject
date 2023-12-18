@@ -1,9 +1,13 @@
 package edu.CourseProject.controller;
 
 import edu.CourseProject.entity.Employee;
+import edu.CourseProject.entity.User;
 import edu.CourseProject.repository.EmployeeRepository;
+import edu.CourseProject.service.EmployeeService;
+import edu.CourseProject.service.UserLogsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,12 +24,23 @@ public class EmployeeController {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    @Autowired
+    private EmployeeService employeeService;
+
+    @Autowired
+    private UserLogsService userLogsService;
+
     @GetMapping("/list")
     public ModelAndView getAllEmployees(){
         log.info("/list -> connection");
         ModelAndView mav = new ModelAndView("List-employees");
-        mav.addObject("employees",employeeRepository.findAll());
+        mav.addObject("employees",employeeService.getEmployees());
         return mav;
+    }
+
+    @GetMapping("/list1")
+    public String aboutPage() {
+        return "list1";
     }
 
     @GetMapping("/addEmployeeForm")
@@ -37,13 +52,14 @@ public class EmployeeController {
     }
 
     @PostMapping("/saveEmployee")
-    public String saveEmployee(@ModelAttribute Employee employee){
-        employeeRepository.save(employee);
+    public String saveEmployee(@ModelAttribute Employee employee, @AuthenticationPrincipal User user){
+        employeeService.addEmployee(employee);
+        userLogsService.addAction(employee, user);
         return "redirect:/list";
     }
 
     @GetMapping("/showUpdateForm")
-    public ModelAndView showUpdateForm(@RequestParam Long employeeId){
+    public ModelAndView showUpdateForm(@RequestParam Long employeeId, @AuthenticationPrincipal User user){
         ModelAndView mav = new ModelAndView("add-employee-form");
         Optional<Employee> optionalEmployee = employeeRepository.findById(employeeId);
         Employee employee = new Employee();
@@ -51,11 +67,17 @@ public class EmployeeController {
             employee = optionalEmployee.get();
         }
         mav.addObject("employee", employee);
+        Employee savedEmployee = employeeRepository.save(employee);
+        userLogsService.editAction(savedEmployee, user);
         return mav;
     }
 
-    @GetMapping("/deleteEmployee")
-    public String deleteStudent(@RequestParam Long employeeId) {
+    @PostMapping("/deleteEmployee")
+    public String deleteEmployee(@RequestParam Long employeeId,
+                             @AuthenticationPrincipal User user,
+                             @ModelAttribute Employee employee) {
+        Employee employeeToDelete = employeeRepository.findById(employeeId).orElse(null);
+        userLogsService.deleteAction(employeeToDelete, user);
         employeeRepository.deleteById(employeeId);
         return "redirect:/list";
     }
