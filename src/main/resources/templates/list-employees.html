@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
->
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Employee Management System</title>
@@ -22,13 +22,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/login}">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/register}">Register</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link active" aria-current="page" th:href="@{/About}">About the attachment</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/logs}">Logs</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" th:href="@{/logout}">Logout</a>
@@ -38,9 +35,9 @@
     </div>
 </nav>
 <div class="container">
-
     <hr/>
-    <a th:href="@{/addEmployeeForm}" class="btn btn-primary">Add employee</a>
+    <a sec:authorize="hasRole('ROLE_ADMIN')" href="@{/addEmployeeForm}" class="btn btn-primary">Add employee</a>
+    <a sec:authorize="hasRole('ROLE_USER')" href="@{/addEmployeeForm}" class="btn btn-primary">Add employee</a>
     <br/><br/>
     <table class="table table-bordered table-striped" id="employeeTable">
 
@@ -51,6 +48,7 @@
             <th>Age</th>
             <th>Department</th>
             <th>Salary</th>
+            <th>Address</th>
         </tr>
         </thead>
         <tbody>
@@ -60,6 +58,7 @@
             <td th:text="${employee.age}" />
             <td th:text="${employee.department}" />
             <td th:text="${employee.salary}" />
+            <td th:text="${employee.address}" />
             <td>
                 <a th:href="@{/showUpdateForm(employeeId=${employee.id})}" class="btn btn-info">Update</a>
 

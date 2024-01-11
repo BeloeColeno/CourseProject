@@ -21,7 +21,7 @@ public class UserLogs {
     private Long id;
 
     @Column(name = "date_actions")
-    private Date dateActions;
+    private Date dateLogs;
 
     @Length(max = 255, message = "Длина описания выходит за границы допустимых значений")
     private String description;

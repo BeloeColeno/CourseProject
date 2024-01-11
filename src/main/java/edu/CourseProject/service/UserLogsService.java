@@ -20,7 +20,7 @@ public class UserLogsService {
     private UserService userService;
 
 
-    private enum ActionType {
+    private enum LogType {
         ADD,
         REMOVE,
         EDIT
@@ -30,24 +30,24 @@ public class UserLogsService {
         return userLogsRepository.findAll();
     }
 
-    public void addAction(Employee employee, User user) {
-        saveAction(ActionType.ADD.name(), employee, user);
+    public void addLog(Employee employee, User user) {
+        saveLog(LogType.ADD.name(), employee, user);
     }
 
-    public void deleteAction(Employee employee, User user) {
-        saveAction(ActionType.REMOVE.name(), employee, user);
+    public void deleteLog(Employee employee, User user) {
+        saveLog(LogType.REMOVE.name(), employee, user);
     }
 
-    public void editAction(Employee employee, User user) {
-        saveAction(ActionType.EDIT.name(), employee, user);
+    public void editLog(Employee employee, User user) {
+        saveLog(LogType.EDIT.name(), employee, user);
     }
 
-    private void saveAction(String action, Employee employee, User user) {
+    private void saveLog(String log, Employee employee, User user) {
         UserLogs userLogs = new UserLogs();
-        userLogs.setDescription(action + " " + employee.toString());
+        userLogs.setDescription(log + " " + employee.toString());
 //        userAction.setUserId(user);
         userLogs.setUserId(userService.getCurrentUser());
-        userLogs.setDateActions(new Date(System.currentTimeMillis()));
+        userLogs.setDateLogs(new Date(System.currentTimeMillis()));
         userLogsRepository.save(userLogs);
     }
 }

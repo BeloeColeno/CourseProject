@@ -54,7 +54,7 @@ public class EmployeeController {
     @PostMapping("/saveEmployee")
     public String saveEmployee(@ModelAttribute Employee employee, @AuthenticationPrincipal User user){
         employeeService.addEmployee(employee);
-        userLogsService.addAction(employee, user);
+        userLogsService.addLog(employee, user);
         return "redirect:/list";
     }
 
@@ -68,7 +68,7 @@ public class EmployeeController {
         }
         mav.addObject("employee", employee);
         Employee savedEmployee = employeeRepository.save(employee);
-        userLogsService.editAction(savedEmployee, user);
+        userLogsService.editLog(savedEmployee, user);
         return mav;
     }
 
@@ -77,7 +77,7 @@ public class EmployeeController {
                              @AuthenticationPrincipal User user,
                              @ModelAttribute Employee employee) {
         Employee employeeToDelete = employeeRepository.findById(employeeId).orElse(null);
-        userLogsService.deleteAction(employeeToDelete, user);
+        userLogsService.deleteLog(employeeToDelete, user);
         employeeRepository.deleteById(employeeId);
         return "redirect:/list";
     }

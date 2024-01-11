@@ -33,6 +33,9 @@ public class Employee {
     @Column(name = "salary")
     private int salary;
 
+    @Column(name = "address")
+    private String address;
+
     @ManyToOne
     private User user;
 

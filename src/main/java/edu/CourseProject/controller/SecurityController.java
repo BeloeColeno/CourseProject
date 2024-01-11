@@ -48,7 +48,7 @@ public class SecurityController {
             }
 
             if (role.getName().equals("READ_ONLY")) {
-                return "redirect:/list1";
+                return "redirect:/list";
             }
         }
         throw new RuntimeException("Роль не найдена");
