@@ -22,7 +22,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/About}">About the attachment</a>
+                    <a class="nav-link active" aria-current="page" th:href="@{/About}">About the site</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/logs}">Logs</a>
@@ -36,8 +36,8 @@
 </nav>
 <div class="container">
     <hr/>
-    <a sec:authorize="hasRole('ROLE_ADMIN')" href="@{/addEmployeeForm}" class="btn btn-primary">Add employee</a>
-    <a sec:authorize="hasRole('ROLE_USER')" href="@{/addEmployeeForm}" class="btn btn-primary">Add employee</a>
+    <a sec:authorize="hasRole('ROLE_ADMIN')" href="/addEmployeeForm" class="btn btn-primary">Add employee</a>
+    <a sec:authorize="hasRole('ROLE_USER')" href="/addEmployeeForm" class="btn btn-primary">Add employee</a>
     <br/><br/>
     <table class="table table-bordered table-striped" id="employeeTable">
 

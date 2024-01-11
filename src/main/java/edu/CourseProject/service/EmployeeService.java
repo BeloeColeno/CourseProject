@@ -9,6 +9,6 @@ public interface EmployeeService {
 
     List<Employee> getEmployees();
 
-   // @Secured({"ROLE_USER", "ROLE_ADMIN"})
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
     void addEmployee(Employee employee);
 }
