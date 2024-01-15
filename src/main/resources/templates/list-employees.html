@@ -60,13 +60,19 @@
             <td th:text="${employee.salary}" />
             <td th:text="${employee.address}" />
             <td>
-                <a th:href="@{/showUpdateForm(employeeId=${employee.id})}" class="btn btn-info">Update</a>
+                <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/showUpdateForm(employeeId=${employee.id})}" class="btn btn-info">Update</a>
 
-                <form th:action="@{/deleteEmployee(employeeId=${employee.id})}" method="post">
+                <form sec:authorize="hasRole('ROLE_ADMIN')" th:action="@{/deleteEmployee(employeeId=${employee.id})}" method="post">
                     <input type="hidden" name="id" th:value="${employee.id}" />
                     <input type="submit" value="Delete" class="btn btn-danger" />
                 </form>
 
+                <a sec:authorize="hasRole('ROLE_USER')" th:href="@{/showUpdateForm(employeeId=${employee.id})}" class="btn btn-info">Update</a>
+
+                <form sec:authorize="hasRole('ROLE_USER')" th:action="@{/deleteEmployee(employeeId=${employee.id})}" method="post">
+                    <input type="hidden" name="id" th:value="${employee.id}" />
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                </form>
             </td>
         </tr>
         </tbody>
